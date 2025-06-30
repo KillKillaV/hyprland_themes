@@ -1,0 +1,108 @@
+* {
+    border: none;
+    border-radius: 0px;
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 14px;
+    min-height: 10px;
+}
+
+window#waybar {
+    background-color: #0A0A0A;
+    color: #FFFFFF;
+    border-top: 2px solid #5c5a5a;
+    border-bottom: 2px solid #5c5a5a;
+    padding: 4px 8px;
+}
+
+window#waybar.hidden {
+    opacity: 0.1;
+}
+
+#window {
+    padding: 0 10px;
+    background: transparent;
+    color: transparent;
+}
+
+/* === Workspaces === */
+#workspaces {
+    background-color: #000000;
+    margin: 0 8px;
+    padding: 4px 10px; 
+    border: 2px solid #5c5a5a;
+}
+
+#workspaces button {
+    background: transparent;
+    color: #666;
+    margin: 0 6px;
+}
+
+#workspaces button.active {
+    color: #FFFFFF;
+    border-bottom: 2px solid #5c5a5a;
+}
+
+#workspaces button:hover {
+    color: #5c5a5a;
+}
+
+/* === Shared Block Style === */
+#network,
+#pulseaudio,
+#battery,
+#clock,
+#memory,
+#disk,
+#cpu,
+#backlight,
+#tray,
+#custom-launcher,
+#custom-power,
+#custom-updates,
+#custom-media {
+    background-color: #121212;
+    color: #FFFFFF;
+    padding: 6px 12px;
+    margin: 6px 4px;
+    border: 1px solid #1F1F1F;
+}
+
+/* === Highlights === */
+#battery.critical:not(.charging) {
+    background-color: #5c5a5a;
+    color: #FFFFFF;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes blink {
+    to {
+        background-color: #FFFFFF;
+        color: #5c5a5a;
+    }
+}
+
+/* === Custom Modules === */
+#custom-launcher {
+    font-size: 20px;
+    background: transparent;
+    color: #5c5a5a;
+    border: none;
+    margin-left: 8px;
+    padding: 0 10px;
+}
+#custom-updates {
+    background-color: #1A1A1A;
+    color: #FFFFFF;
+    border-left: 4px solid #5c5a5a;
+}
+
+#custom-media {
+    background-color: #1A1A1A;
+    color: #FFFFFF;
+    border-left: 4px solid #5c5a5a;
+}
+
