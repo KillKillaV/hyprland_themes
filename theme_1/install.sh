@@ -6,20 +6,6 @@ GREEN="\e[32m"
 RED="\e[31m"
 RESET="\e[0m"
 
-install_nerdfont() {
-  FONT="Hack"
-  mkdir -p ~/.local/share/fonts
-  git clone --filter=blob:none --sparse https://github.com/ryanoasis/nerd-fonts.git /tmp/nerd-fonts
-  cd /tmp/nerd-fonts || exit
-  git sparse-checkout init --cone
-  git sparse-checkout set "patched-fonts/$FONT"
-  ./install.sh "$FONT"
-  cd ~ || exit
-  rm -rf /tmp/nerd-fonts
-  fc-cache -fv
-  echo "$FONT Nerd Font instalada para Waybar."
-}
-
 while true; do
     echo -n -e "${RED}Esto inicia la instalación del theme_1. ¿Quieres continuar? (y/n) "
     read decision
@@ -52,7 +38,17 @@ while true; do
         fi
 done
 
-install_nerdfont
+# Añadiendo Nerd Fonts
+mkdir -p ~/.local/share/fonts && \
+git clone --filter=blob:none --sparse https://github.com/ryanoasis/nerd-fonts.git /tmp/nerd-fonts && \
+cd /tmp/nerd-fonts && \
+git sparse-checkout init --cone && \
+git sparse-checkout set patched-fonts/JetBrainsMono && \
+./install.sh JetBrainsMono && \
+cd ~ && \
+rm -rf /tmp/nerd-fonts && \
+fc-cache -fv && \
+echo "Nerd Fonts añadidos."
 
 echo "Descargando plugins"
 PLUGINS_DIR="$HOME/.oh-my-zsh/custom/plugins"
@@ -92,7 +88,7 @@ fi
 if command -v kitty >/dev/null 2>&1; then
     echo "kitty ya esta instalado"
 else
-    echo "kitty NO esta instalado"
+    echo "${RED}kitty NO esta instalado${RESET}"
     echo "Instalando..."
     sudo pacman -S kitty --noconfirm
 fi
@@ -120,17 +116,25 @@ fi
 if command -v thunar >/dev/null 2>&1; then
     echo "thunar ya está descargado"
 else
-    echo "thunar NO esta instalado..."
+    echo "${RED}thunar NO esta instalado...${RESET}"
     echo "Instalando..."
     sudo pacman -S thunar --noconfirm
 fi
 if command -v wofi >/dev/null 2>&1; then
     echo "wofi ya está instalado"
 else
-    echo "wofi no esta instalado"
+    echo "${RED}wofi no esta instalado${RESET}"
     sleep 0.2
-    echo "descagando wofi..."
+    echo "Descargando wofi..."
     sudo pacman -S wofi --noconfirm
+fi
+if command -v waypaper >/dev/null 2>&1; then
+    echo "waypaper ya esta instalado"
+else
+    echo "${RED}waypaper no esta instalado${RESET}"
+    sleep 0.2
+    echo "Instalando waypaper..."
+    sudo pacman -S waypaper --noconfirm
 fi
 # Situando .zshrc
 rm $HOME/.zshrc
@@ -151,7 +155,8 @@ DIRWOFI="$HOME/hyprland_themes/theme_1/wofi"
 WOFI="$HOME/.config/wofi"
 WAY="$HOME/.config/waypaper"
 WAYPAPER="$HOME/hyprland_themes/theme_1/waypaper"
-
+FAST="$HOME/.config/fastfetch"
+FASTFETCH="$HOME/hyprland_themes/theme_1/fastfetch"
 
 # Detectar Hypr
 if [ -d "$DIRH" ]; then
@@ -393,6 +398,68 @@ if [ -d "$WAY" ]; then
     fi
 else
     echo -e "${RED}No existe el directorio $WAY...${RESET}"
+    exit 1
+fi
+echo "Descarando fastfetch..."
+sleep 2
+sudo pacman -S fastfetch --noconfirm
+echo "Hecho :)... Ya queda poco"
+if [ -d "$FAST" ]; then
+    if [ "$(ls -A "$FAST")" ]; then
+        echo -e "${GREEN}El directorio $FAST no está vacío.${RESET}"
+        echo "###########################!!!!!!!!!!!!!"
+        echo "###########################!!!!!!!!!!!!!"
+        while true; do
+            echo -n "¿Deseas hacer copia de seguridad de los archivos en $FAST? Se guardarán en $DIRBACKUP (y/n): "
+            read backup
+            if [[ "$backup" == "y" || "$backup" == "Y" ]]; then
+                echo "Realizando copia..."
+                mkdir -p "$DIRBACKUP"
+                cp -r "$FAST" "$DIRBACKUP"
+                echo "Copia realizada"
+            elif [[ "$backup" == "n" || "$backup" == "N" ]]; then
+                echo "Saltando copia..."
+            else 
+                echo -e "${RED}Por favor selecciona una opción válida${RESET}"
+                continue
+            fi
+
+            echo "Eliminando $FAST"
+            rm -rf "$FAST"
+            echo "Copiando nueva configuración desde $FASTFETCH"
+            cp -r "$FASTFETCH" "$FAST"
+            echo "Estableciendo permisos de ejecución..."
+            chmod -R +x "$FAST"
+            sleep 1
+            break
+        done
+    else
+        echo "El directorio $FAST está vacío."
+        echo "Copiando archivos..."
+        cp -dr "$FASTFETCH" "$FAST"
+        chmod -R +x "$FAST"
+    fi
+else
+    echo "Directorio $FAST no encontrado, creando y copiando archivos..."
+    cp -dr "$FASTFETCH" "$FAST"
+    chmod -R +x "$FAST"
+fi
+
+hyprctl reload
+
+echo "Viendo si los cambios se han efectuado correctamente..."
+sleep 1
+
+if [ -d "$FAST" ]; then
+    echo -e "${GREEN}Existe el directorio $FAST!${RESET}"
+    if [ "$(ls -A "$FAST")" ]; then
+        echo -e "${GREEN}En el directorio $FAST hay archivos!${RESET}"
+    else
+        echo -e "${RED}No hay archivos en $FAST :(${RESET}"
+        exit 1
+    fi
+else
+    echo -e "${RED}No existe el directorio $FAST...${RESET}"
     exit 1
 fi
 echo "Hecho, reiniciando en 5"
