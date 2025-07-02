@@ -120,6 +120,8 @@ else
         
     done
 fi
+sudo pacman -S zsh
+chsh -s $(which zsh)
 if command -v thunar >/dev/null 2>&1; then
     echo "thunar ya está descargado"
 else
