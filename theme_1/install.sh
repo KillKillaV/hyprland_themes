@@ -151,7 +151,6 @@ else
 
     echo "Oh-My-Zsh ha sido instalado"
 fi
-if [ -d "HOME/.oh-my-zsh" ];
 # Situando .zshrc
 rm $HOME/.zshrc
 cp $HOME/hyprland_themes/theme_1/.zshrc $HOME
