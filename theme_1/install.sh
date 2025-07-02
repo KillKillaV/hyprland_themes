@@ -22,6 +22,7 @@ while true; do
 done
 
 
+
 set +e
 while true; do
         echo -n -e "${GREEN}Deseas actualizar binarios/sistema? (y/n) "
@@ -37,6 +38,12 @@ while true; do
             echo "Pofavor selecciona algo, y = yes, n = no..."
         fi
 done
+# Instalacion yay
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+sleep 2
+yay -S fastfetch
 
 # Añadiendo Nerd Fonts
 mkdir -p ~/.local/share/fonts && \
@@ -136,6 +143,15 @@ else
     echo "Instalando waypaper..."
     sudo pacman -S waypaper --noconfirm
 fi
+if [ -d "$HOME/.oh-my-zsh" ]; then
+    echo "Oh-My-Zsh ya está instalado"
+else
+    echo "Oh-My-Zsh no encontrado. Instalando..."
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+    echo "Oh-My-Zsh ha sido instalado"
+fi
+if [ -d "HOME/.oh-my-zsh" ];
 # Situando .zshrc
 rm $HOME/.zshrc
 cp $HOME/hyprland_themes/theme_1/.zshrc $HOME
