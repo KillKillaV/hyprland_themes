@@ -38,6 +38,10 @@ while true; do
         fi
 done
 
+echo "Instalando Zsh..."
+sleep 1
+sudo pacman -S zsh
+
 if [ -f "$HOME/.zshrc" ]; then
     echo ".zshrc ya existe."
 	sleep 0.1
