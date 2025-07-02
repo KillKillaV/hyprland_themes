@@ -38,15 +38,14 @@ while true; do
         fi
 done
 
-echo "Instalando Zsh..."
-sleep 1
-sudo pacman -S zsh
 
 if [ -f "$HOME/.zshrc" ]; then
     echo ".zshrc ya existe."
 	sleep 0.1
+    sudo pacman -S zsh
 else
     echo "No se encontró .zshrc. Descargandolo..."
+    sudo pacman -S zsh
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
