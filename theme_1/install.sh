@@ -6,6 +6,20 @@ GREEN="\e[32m"
 RED="\e[31m"
 RESET="\e[0m"
 
+install_nerdfont() {
+  FONT="Hack"
+  mkdir -p ~/.local/share/fonts
+  git clone --filter=blob:none --sparse https://github.com/ryanoasis/nerd-fonts.git /tmp/nerd-fonts
+  cd /tmp/nerd-fonts || exit
+  git sparse-checkout init --cone
+  git sparse-checkout set "patched-fonts/$FONT"
+  ./install.sh "$FONT"
+  cd ~ || exit
+  rm -rf /tmp/nerd-fonts
+  fc-cache -fv
+  echo "$FONT Nerd Font instalada para Waybar."
+}
+
 while true; do
     echo -n -e "${RED}Esto inicia la instalación del theme_1. ¿Quieres continuar? (y/n) "
     read decision
@@ -38,16 +52,7 @@ while true; do
         fi
 done
 
-
-if [ -f "$HOME/.zshrc" ]; then
-    echo ".zshrc ya existe."
-	sleep 0.1
-    sudo pacman -S zsh
-else
-    echo "No se encontró .zshrc. Descargandolo..."
-    sudo pacman -S zsh
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-fi
+install_nerdfont
 
 echo "Descargando plugins"
 PLUGINS_DIR="$HOME/.oh-my-zsh/custom/plugins"
@@ -127,6 +132,12 @@ else
     echo "descagando wofi..."
     sudo pacman -S wofi --noconfirm
 fi
+# Situando .zshrc
+rm $HOME/.zshrc
+cp $HOME/hyprland_themes/theme_1/.zshrc $HOME
+chmod +x $HOME/.zshrc
+echo "HECHO"
+sleep 1
 echo -e "${GREEN}Primer paso terminado :D...${RESET}"
 sleep 1
 echo -e "Comenzando con la configuración${RESET}"
