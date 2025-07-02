@@ -157,7 +157,7 @@ WAY="$HOME/.config/waypaper"
 WAYPAPER="$HOME/hyprland_themes/theme_1/waypaper"
 FAST="$HOME/.config/fastfetch"
 FASTFETCH="$HOME/hyprland_themes/theme_1/fastfetch"
-KI="$HOME/.config/kitty"
+KI="$HOME/.config/"
 TTY="$HOME/hyprland_themes/theme_1/kitty"
 
 # Detectar Hypr
