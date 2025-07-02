@@ -161,6 +161,7 @@ if [ -d "$DIRH" ]; then
                 elif [[ $backup == "n" || $backup == "N" ]]; then
                     echo "Entendido... borrando y copiando los archivos..."
                     rm -rf $DIRH
+                    mkdir ~/.config/hypr
                     cp -dr $DIRHY $HOME/.config
                     echo "Ahora le daremos permisos de ejecución"
                     chmod -R +x $DIRH
