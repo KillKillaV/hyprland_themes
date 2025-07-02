@@ -157,6 +157,8 @@ WAY="$HOME/.config/waypaper"
 WAYPAPER="$HOME/hyprland_themes/theme_1/waypaper"
 FAST="$HOME/.config/fastfetch"
 FASTFETCH="$HOME/hyprland_themes/theme_1/fastfetch"
+OH="$HOME/.oh-my-zsh"
+MY="$HOME/hyprland_themes/theme_1/"
 
 # Detectar Hypr
 if [ -d "$DIRH" ]; then
@@ -400,6 +402,7 @@ else
     echo -e "${RED}No existe el directorio $WAY...${RESET}"
     exit 1
 fi
+# Fastfetch
 echo "Descarando fastfetch..."
 sleep 2
 sudo pacman -S fastfetch --noconfirm
@@ -460,6 +463,69 @@ if [ -d "$FAST" ]; then
     fi
 else
     echo -e "${RED}No existe el directorio $FAST...${RESET}"
+    exit 1
+fi
+
+#OH="$HOME/.oh-my-zsh"
+#MY="$HOME/hyprland_themes/theme_1/
+
+# oh-my-zsh
+if [ -d "$OH" ]; then
+    if [ "$(ls -A "$OH")" ]; then
+        echo -e "${GREEN}El directorio $OH no está vacío.${RESET}"
+        echo "###########################!!!!!!!!!!!!!"
+        echo "###########################!!!!!!!!!!!!!"
+        while true; do
+            echo -n "¿Deseas hacer copia de seguridad de los archivos en $OH? Se guardarán en $DIRBACKUP (y/n): "
+            read backup
+            if [[ "$backup" == "y" || "$backup" == "Y" ]]; then
+                echo "Realizando copia..."
+                mkdir -p "$DIRBACKUP"
+                cp -r "$OH" "$DIRBACKUP"
+                echo "Copia realizada"
+            elif [[ "$backup" == "n" || "$backup" == "N" ]]; then
+                echo "Saltando copia..."
+            else 
+                echo -e "${RED}Por favor selecciona una opción válida${RESET}"
+                continue
+            fi
+
+            echo "Eliminando $OH"
+            rm -rf "$OH"
+            echo "Copiando nueva configuración desde $MY"
+            cp -r "$MY" "$OH"
+            echo "Estableciendo permisos de ejecución..."
+            chmod -R +x "$OH"
+            sleep 1
+            break
+        done
+    else
+        echo "El directorio $OH está vacío."
+        echo "Copiando archivos..."
+        cp -dr "$MY" "$OH"
+        chmod -R +x "$OH"
+    fi
+else
+    echo "Directorio $OH no encontrado, creando y copiando archivos..."
+    cp -dr "$MY" "$OH"
+    chmod -R +x "$OH"
+fi
+
+hyprctl reload
+
+echo "Viendo si los cambios se han efectuado correctamente..."
+sleep 1
+
+if [ -d "$OH" ]; then
+    echo -e "${GREEN}Existe el directorio $OH!${RESET}"
+    if [ "$(ls -A "$OH")" ]; then
+        echo -e "${GREEN}En el directorio $OH hay archivos!${RESET}"
+    else
+        echo -e "${RED}No hay archivos en $OH :(${RESET}"
+        exit 1
+    fi
+else
+    echo -e "${RED}No existe el directorio $OH...${RESET}"
     exit 1
 fi
 echo "Hecho, reiniciando en 5"
