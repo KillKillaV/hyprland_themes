@@ -157,8 +157,8 @@ WAY="$HOME/.config/waypaper"
 WAYPAPER="$HOME/hyprland_themes/theme_1/waypaper"
 FAST="$HOME/.config/fastfetch"
 FASTFETCH="$HOME/hyprland_themes/theme_1/fastfetch"
-OH="$HOME/.oh-my-zsh"
-MY="$HOME/hyprland_themes/theme_1/"
+KI="$HOME/.config/kitty"
+TTY="$HOME/hyprland_themes/theme_1/kitty"
 
 # Detectar Hypr
 if [ -d "$DIRH" ]; then
@@ -466,22 +466,22 @@ else
     exit 1
 fi
 
-#OH="$HOME/.oh-my-zsh"
-#MY="$HOME/hyprland_themes/theme_1/
+#KI="$HOME/.config/kitty"
+#TTY="$HOME/hyprland_themes/theme_1/kitty
 
-# oh-my-zsh
-if [ -d "$OH" ]; then
-    if [ "$(ls -A "$OH")" ]; then
-        echo -e "${GREEN}El directorio $OH no está vacío.${RESET}"
+#kitty
+if [ -d "$KI" ]; then
+    if [ "$(ls -A "$KI")" ]; then
+        echo -e "${GREEN}El directorio $KI no está vacío.${RESET}"
         echo "###########################!!!!!!!!!!!!!"
         echo "###########################!!!!!!!!!!!!!"
         while true; do
-            echo -n "¿Deseas hacer copia de seguridad de los archivos en $OH? Se guardarán en $DIRBACKUP (y/n): "
+            echo -n "¿Deseas hacer copia de seguridad de los archivos en $KI? Se guardarán en $DIRBACKUP (y/n): "
             read backup
             if [[ "$backup" == "y" || "$backup" == "Y" ]]; then
                 echo "Realizando copia..."
                 mkdir -p "$DIRBACKUP"
-                cp -r "$OH" "$DIRBACKUP"
+                cp -r "$KI" "$DIRBACKUP"
                 echo "Copia realizada"
             elif [[ "$backup" == "n" || "$backup" == "N" ]]; then
                 echo "Saltando copia..."
@@ -490,25 +490,25 @@ if [ -d "$OH" ]; then
                 continue
             fi
 
-            echo "Eliminando $OH"
-            rm -rf "$OH"
-            echo "Copiando nueva configuración desde $MY"
-            cp -rd "$MY" "$OH"
+            echo "Eliminando $KI"
+            rm -rf "$KI"
+            echo "Copiando nueva configuración desde $TTY"
+            cp -rd "$TTY" "$KI"
             echo "Estableciendo permisos de ejecución..."
-            chmod -R +x "$OH"
+            chmod -R +x "$KI"
             sleep 1
             break
         done
     else
-        echo "El directorio $OH está vacío."
+        echo "El directorio $KI está vacío."
         echo "Copiando archivos..."
-        cp -dr "$MY" "$OH"
-        chmod -R +x "$OH"
+        cp -dr "$TTY" "$KI"
+        chmod -R +x "$KI"
     fi
 else
-    echo "Directorio $OH no encontrado, creando y copiando archivos..."
-    cp -dr "$MY" "$OH"
-    chmod -R +x "$OH"
+    echo "Directorio $KI no encontrado, creando y copiando archivos..."
+    cp -dr "$TTY" "$KI"
+    chmod -R +x "$KI"
 fi
 
 hyprctl reload
@@ -516,16 +516,16 @@ hyprctl reload
 echo "Viendo si los cambios se han efectuado correctamente..."
 sleep 1
 
-if [ -d "$OH" ]; then
-    echo -e "${GREEN}Existe el directorio $OH!${RESET}"
-    if [ "$(ls -A "$OH")" ]; then
-        echo -e "${GREEN}En el directorio $OH hay archivos!${RESET}"
+if [ -d "$KI" ]; then
+    echo -e "${GREEN}Existe el directorio $KI!${RESET}"
+    if [ "$(ls -A "$KI")" ]; then
+        echo -e "${GREEN}En el directorio $KI hay archivos!${RESET}"
     else
-        echo -e "${RED}No hay archivos en $OH :(${RESET}"
+        echo -e "${RED}No hay archivos en $KI :(${RESET}"
         exit 1
     fi
 else
-    echo -e "${RED}No existe el directorio $OH...${RESET}"
+    echo -e "${RED}No existe el directorio $KI...${RESET}"
     exit 1
 fi
 echo "Hecho, reiniciando en 5"
