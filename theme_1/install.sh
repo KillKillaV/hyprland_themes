@@ -60,31 +60,6 @@ echo "Nerd Fonts añadidos."
 echo "Descargando plugins"
 PLUGINS_DIR="$HOME/.oh-my-zsh/custom/plugins"
 
-plugins=(
-	"zsh-autosuggestions"
-	"zsh-syntax-highlighting"
-	"zsh-history-substring-search"
-)
-repos=(
-	"https://github.com/zsh-users/zsh-autosuggestions"
-	"https://github.com/zsh-users/zsh-syntax-highlighting"
-	"https://github.com/zsh-users/zsh-history-substring-search"
-)
-
-for i in "${!plugins[@]}"; do
-    plugin="${plugins[$i]}"
-    repo="${repos[$i]}"
-    PLUGIN_PATH="$PLUGINS_DIR/$plugin"
-
-    if [ -d "$PLUGIN_PATH" ]; then
-        echo "Actualizando $plugin..."
-        git -C "$PLUGIN_PATH" pull
-    else
-        echo "Clonando $plugin..."
-        git clone "$repo" "$PLUGIN_PATH"
-    fi
-done
-
 if command -v waybar >/dev/null 2>&1; then
     echo "waybar ya está instalado"
 else
@@ -545,6 +520,30 @@ else
     echo -e "${RED}No existe el directorio $KI...${RESET}"
     exit 1
 fi
+plugins=(
+	"zsh-autosuggestions"
+	"zsh-syntax-highlighting"
+	"zsh-history-substring-search"
+)
+repos=(
+	"https://github.com/zsh-users/zsh-autosuggestions"
+	"https://github.com/zsh-users/zsh-syntax-highlighting"
+	"https://github.com/zsh-users/zsh-history-substring-search"
+)
+
+for i in "${!plugins[@]}"; do
+    plugin="${plugins[$i]}"
+    repo="${repos[$i]}"
+    PLUGIN_PATH="$PLUGINS_DIR/$plugin"
+
+    if [ -d "$PLUGIN_PATH" ]; then
+        echo "Actualizando $plugin..."
+        git -C "$PLUGIN_PATH" pull
+    else
+        echo "Clonando $plugin..."
+        git clone "$repo" "$PLUGIN_PATH"
+    fi
+done
 echo "Hecho, reiniciando en 5"
 sleep 1
 echo "4"
