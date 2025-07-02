@@ -111,7 +111,7 @@ else
                     echo "Entendido, iniciando descarga..."
                     sudo pacman -S firefox
                     break
-                elif [[ $backup == "n" || $backup == "N" ]]; then
+                elif [[ $firefox == "n" || $firefox == "N" ]]; then
                     echo "Entendido..."
                     break
                 else 
@@ -147,7 +147,7 @@ if [ -d "$HOME/.oh-my-zsh" ]; then
     echo "Oh-My-Zsh ya está instalado"
 else
     echo "Oh-My-Zsh no encontrado. Instalando..."
-    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
     echo "Oh-My-Zsh ha sido instalado"
 fi
