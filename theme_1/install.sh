@@ -78,12 +78,41 @@ if command -v waybar >/dev/null 2>&1; then
     echo "waybar ya está instalado"
 else
     echo "waybar NO está instalado"
+    echo "Instalando..."
     sudo pacman -S waybar --noconfirm
+fi
+if command -v kitty >/dev/null 2>&1; then
+    echo "kitty ya esta instalado"
+else
+    echo "kitty NO esta instalado"
+    echo "Instalando..."
+    sudo pacman -S kitty --noconfirm
+fi
+if command -v firefox >/dev/null 2>&1; then
+    echo "firefox ya esta instalado :) "
+else
+    echo "firefox no esta instalado..."
+    sleep 1
+    while true; do
+            echo -n "¿Desearias instalar firefox? (y/n) "
+            read firefox
+                if [[ $firefox == "y" || $firefox == "Y" ]]; then
+                    echo "Entendido, iniciando descarga..."
+                    sudo pacman -S firefox
+                    break
+                elif [[ $backup == "n" || $backup == "N" ]]; then
+                    echo "Entendido..."
+                    break
+                else 
+                    echo -e "${RED}Porfavor selecciona una opcion valida${RESET}"
+                fi
+        
+    done
 fi
 if command -v thunar >/dev/null 2>&1; then
     echo "thunar ya está descargado"
 else
-    echo "thunar No esta instalado..."
+    echo "thunar NO esta instalado..."
     echo "Instalando..."
     sudo pacman -S thunar --noconfirm
 fi
@@ -95,14 +124,20 @@ else
     echo "descagando wofi..."
     sudo pacman -S wofi --noconfirm
 fi
-echo -e "${GREEN}Primer paso terminado :D..."
+echo -e "${GREEN}Primer paso terminado :D...${RESET}"
 sleep 1
 echo -e "Comenzando con la configuración${RESET}"
 
 DIRH="$HOME/.config/hypr"
 DIRW="$HOME/.config/waybar"
-DIRWP="$HOME/.config/CACA"
 DIRBACKUP="$HOME/.config/backups"
+DIRHY="$HOME/hyprland_themes/theme_1/hypr"
+DIRWY="$HOME/hyprland_themes/theme_1/waybar"
+DIRWOFI="$HOME/hyprland_themes/theme_1/wofi"
+WOFI="$HOME/.config/wofi"
+WAY="$HOME/.config/waypaper"
+WAYPAPER="$HOME/hyprland_themes/theme_1/waypaper"
+
 
 # Detectar Hypr
 if [ -d "$DIRH" ]; then
@@ -111,20 +146,22 @@ if [ -d "$DIRH" ]; then
         echo "###########################!!!!!!!!!!!!!"
         echo "###########################!!!!!!!!!!!!!"
         while true; do
-            echo -n "Desearias hacer copia de seguridad de tus archivos en la carpeta $DIRH que va a crear una backup en la carpeta $DIRBACKUP? (y/n) "
+            echo -n "¿Desearias hacer copia de seguridad de tus archivos en la carpeta $DIRH que va a crear una backup en la carpeta $DIRBACKUP? (y/n) "
             read backup
                 if [[ $backup == "y" || $backup == "Y" ]]; then
                     echo "Realizando copia..."
                     cp -r -d $DIRH $DIRBACKUP
-                    echo "Copia realizada =D"
+                    rm -rd $DIRH
+                    echo "Copia realizandose =D"
+                    cp -dr $DIRHY $HOME/.config
                     echo "Ahora estableceremos permisos de ejecución..."
                     chmod -R +x $DIRH
+                    sleep 1
                     break
                 elif [[ $backup == "n" || $backup == "N" ]]; then
                     echo "Entendido... borrando y copiando los archivos..."
                     rm -rf $DIRH
-                    cp -r -d $DIRH $DIRBACKUP
-                    echo "Copiado..."
+                    cp -dr $DIRHY $HOME/.config
                     echo "Ahora le daremos permisos de ejecución"
                     chmod -R +x $DIRH
                     break
@@ -135,10 +172,222 @@ if [ -d "$DIRH" ]; then
 
     else
         echo "El directorio $DIRH está vacío."
+        echo "Copiando archivos..."
+        cp -dr $DIRHY $HOME/.config
     fi
 else
-    echo "No existe"
+    echo "Directorio no encontrado"
+    echo "Copiando archivos hacia $DIRH"
+    cp -dr $DIRHY $HOME/.config
+fi
+hyprctl reload
+echo -e "${GREEN}Viendo su los cambios se han efectuado bien${RESET}"
+sleep 1 
+echo -e "${GREEN}Confirmando${RESET}"
+if [ -d "$DIRH" ]; then
+    echo -e "Existe el directorio $DIRH!${RESET}"
+    if [ "$(ls -A "$DIRH")" ]; then
+        echo -e "${GREEN}En el directorio $DIRH hay archivos!!${RESET}"
+    else
+        echo -e "${RED}No hay archivos en $DIRH :( ${RESET}"
+        exit 0
+    fi
+else
+    echo -e "${RED}No existe el directorio ${DIRH}...${RESET}"
+    exit 0
 fi
 
-
 # Detectar waybar
+if [ -d "$DIRW" ]; then
+    if [ "$(ls -A "$DIRW")" ]; then
+        echo -e "${GREEN}El directorio $DIRW no está vacío.${RESET}"
+        echo "###########################!!!!!!!!!!!!!"
+        echo "###########################!!!!!!!!!!!!!"
+        while true; do
+            echo -n "¿Deseas hacer copia de seguridad de los archivos en $DIRW? Se guardarán en $DIRBACKUP (y/n): "
+            read backup
+            if [[ "$backup" == "y" || "$backup" == "Y" ]]; then
+                echo "Realizando copia..."
+                mkdir -p "$DIRBACKUP"
+                cp -r "$DIRW" "$DIRBACKUP"
+                echo "Copia realizada"
+            elif [[ "$backup" == "n" || "$backup" == "N" ]]; then
+                echo "Saltando copia..."
+            else 
+                echo -e "${RED}Por favor selecciona una opción válida${RESET}"
+                continue
+            fi
+
+            echo "Eliminando $DIRW"
+            rm -rf "$DIRW"
+            echo "Copiando nueva configuración desde $DIRWY"
+            cp -r "$DIRWY" "$DIRW"
+            echo "Estableciendo permisos de ejecución..."
+            chmod -R +x "$DIRW"
+            sleep 1
+            break
+        done
+    else
+        echo "El directorio $DIRW está vacío."
+        echo "Copiando archivos..."
+        cp -r "$DIRWY" "$DIRW"
+        chmod -R +x "$DIRW"
+    fi
+else
+    echo "Directorio $DIRW no encontrado, creando y copiando archivos..."
+    cp -r "$DIRWY" "$DIRW"
+    chmod -R +x "$DIRW"
+fi
+
+hyprctl reload
+
+echo "Viendo si los cambios se han efectuado correctamente..."
+sleep 1
+
+if [ -d "$DIRW" ]; then
+    echo -e "${GREEN}Existe el directorio $DIRW!${RESET}"
+    if [ "$(ls -A "$DIRW")" ]; then
+        echo -e "${GREEN}En el directorio $DIRW hay archivos!${RESET}"
+    else
+        echo -e "${RED}No hay archivos en $DIRW :(${RESET}"
+        exit 1
+    fi
+else
+    echo -e "${RED}No existe el directorio $DIRW...${RESET}"
+    exit 1
+fi
+killall waybar
+waybar &
+sleep 4
+echo "Iniciando configuracion Wofi"
+
+# Wofi
+if [ -d "$WOFI" ]; then
+    if [ "$(ls -A "$WOFI")" ]; then
+        echo -e "${GREEN}El directorio $WOFI no está vacío.${RESET}"
+        echo "###########################!!!!!!!!!!!!!"
+        echo "###########################!!!!!!!!!!!!!"
+        while true; do
+            echo -n "¿Deseas hacer copia de seguridad de los archivos en $WOFI? Se guardarán en $DIRBACKUP (y/n): "
+            read backup
+            if [[ "$backup" == "y" || "$backup" == "Y" ]]; then
+                echo "Realizando copia..."
+                mkdir -p "$DIRBACKUP"
+                cp -r "$WOFI" "$DIRBACKUP"
+                echo "Copia realizada"
+            elif [[ "$backup" == "n" || "$backup" == "N" ]]; then
+                echo "Saltando copia..."
+            else 
+                echo -e "${RED}Por favor selecciona una opción válida${RESET}"
+                continue
+            fi
+
+            echo "Eliminando $WOFI"
+            rm -rf "$WOFI"
+            echo "Copiando nueva configuración desde $DIRWOFI"
+            cp -r "$DIRWOFI" "$WOFI"
+            echo "Estableciendo permisos de ejecución..."
+            chmod -R +x "$WOFI"
+            sleep 1
+            break
+        done
+    else
+        echo "El directorio $WOFI está vacío."
+        echo "Copiando archivos..."
+        cp -r "$DIRWOFI" "$WOFI"
+        chmod -R +x "$WOFI"
+    fi
+else
+    echo "Directorio $WOFI no encontrado, creando y copiando archivos..."
+    cp -r "$DIRWOFI" "$WOFI"
+    chmod -R +x "$WOFI"
+fi
+
+hyprctl reload
+
+echo "Viendo si los cambios se han efectuado correctamente..."
+sleep 1
+
+if [ -d "$WOFI" ]; then
+    echo -e "${GREEN}Existe el directorio $WOFI!${RESET}"
+    if [ "$(ls -A "$WOFI")" ]; then
+        echo -e "${GREEN}En el directorio $WOFI hay archivos!${RESET}"
+    else
+        echo -e "${RED}No hay archivos en $WOFI :(${RESET}"
+        exit 1
+    fi
+else
+    echo -e "${RED}No existe el directorio $WOFI...${RESET}"
+    exit 1
+fi
+
+# Waypaper
+if [ -d "$WAY" ]; then
+    if [ "$(ls -A "$WAY")" ]; then
+        echo -e "${GREEN}El directorio $WAY no está vacío.${RESET}"
+        echo "###########################!!!!!!!!!!!!!"
+        echo "###########################!!!!!!!!!!!!!"
+        while true; do
+            echo -n "¿Deseas hacer copia de seguridad de los archivos en $WAY? Se guardarán en $DIRBACKUP (y/n): "
+            read backup
+            if [[ "$backup" == "y" || "$backup" == "Y" ]]; then
+                echo "Realizando copia..."
+                mkdir -p "$DIRBACKUP"
+                cp -r "$WAY" "$DIRBACKUP"
+                echo "Copia realizada"
+            elif [[ "$backup" == "n" || "$backup" == "N" ]]; then
+                echo "Saltando copia..."
+            else 
+                echo -e "${RED}Por favor selecciona una opción válida${RESET}"
+                continue
+            fi
+
+            echo "Eliminando $WAY"
+            rm -rf "$WAY"
+            echo "Copiando nueva configuración desde $WAYPAPER"
+            cp -r "$WAYPAPER" "$WAY"
+            echo "Estableciendo permisos de ejecución..."
+            chmod -R +x "$WAY"
+            sleep 1
+            break
+        done
+    else
+        echo "El directorio $WAY está vacío."
+        echo "Copiando archivos..."
+        cp -dr "$WAYPAPER" "$WAY"
+        chmod -R +x "$WAY"
+    fi
+else
+    echo "Directorio $WAY no encontrado, creando y copiando archivos..."
+    cp -dr "$WAYPAPER" "$WAY"
+    chmod -R +x "$WAY"
+fi
+
+hyprctl reload
+
+echo "Viendo si los cambios se han efectuado correctamente..."
+sleep 1
+
+if [ -d "$WAY" ]; then
+    echo -e "${GREEN}Existe el directorio $WAY!${RESET}"
+    if [ "$(ls -A "$WAY")" ]; then
+        echo -e "${GREEN}En el directorio $WAY hay archivos!${RESET}"
+    else
+        echo -e "${RED}No hay archivos en $WAY :(${RESET}"
+        exit 1
+    fi
+else
+    echo -e "${RED}No existe el directorio $WAY...${RESET}"
+    exit 1
+fi
+echo "Hecho, reiniciando en 5"
+sleep 1
+echo "4"
+sleep 1
+echo "3"
+sleep 1
+echo "2"
+sleep 1
+echo "1"
+sleep 1
+sudo reboot now
