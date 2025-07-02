@@ -493,7 +493,7 @@ if [ -d "$OH" ]; then
             echo "Eliminando $OH"
             rm -rf "$OH"
             echo "Copiando nueva configuración desde $MY"
-            cp -r "$MY" "$OH"
+            cp -rd "$MY" "$OH"
             echo "Estableciendo permisos de ejecución..."
             chmod -R +x "$OH"
             sleep 1
