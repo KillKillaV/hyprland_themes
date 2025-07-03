@@ -1,3 +1,3 @@
-# hyprland_themes
+# Hyprland_Themes
 
-![[theme_1/Wallpapers/l.jpg]]
+s
