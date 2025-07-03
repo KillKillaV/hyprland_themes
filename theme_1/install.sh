@@ -151,6 +151,8 @@ FAST="$HOME/.config/fastfetch"
 FASTFETCH="$HOME/hyprland_themes/theme_1/fastfetch"
 KI="$HOME/.config/kitty"
 TTY="$HOME/hyprland_themes/theme_1/kitty"
+OH="$HOME/hyprland_themes/theme_1/.oh-my-zsh"
+MY="$HOME/.oh-my-zsh"
 
 # Detectar Hypr
 if [ -d "$DIRH" ]; then
@@ -520,6 +522,72 @@ else
     echo -e "${RED}No existe el directorio $KI...${RESET}"
     exit 1
 fi
+
+#OH="$HOME/hyprland_themes/theme_1/.oh-my-zsh"
+#MY="$HOME/.oh-my-zsh"
+#oh-my-zsh
+if [ -d "$MY" ]; then
+    if [ "$(ls -A "$MY")" ]; then
+        echo -e "${GREEN}El directorio $MY no está vacío.${RESET}"
+        echo "###########################!!!!!!!!!!!!!"
+        echo "###########################!!!!!!!!!!!!!"
+        while true; do
+            echo -n "¿Deseas hacer copia de seguridad de los archivos en $MY? Se guardarán en $DIRBACKUP (y/n): "
+            read backup
+            if [[ "$backup" == "y" || "$backup" == "Y" ]]; then
+                echo "Realizando copia..."
+                mkdir -p "$DIRBACKUP"
+                cp -r "$MY" "$DIRBACKUP"
+                echo "Copia realizada"
+            elif [[ "$backup" == "n" || "$backup" == "N" ]]; then
+                echo "Saltando copia..."
+            else 
+                echo -e "${RED}Por favor selecciona una opción válida${RESET}"
+                continue
+            fi
+
+            echo "Eliminando $MY"
+            rm -rf "$MY"
+            echo "Copiando nueva configuración desde $OH"
+            cp -rd "$OH" "$MY"
+            echo "Estableciendo permisos de ejecución..."
+            chmod -R +x "$MY"
+            sleep 1
+            break
+        done
+    else
+        echo "El directorio $MY está vacío."
+        echo "Copiando archivos..."
+        cp -dr "$OH" "$MY"
+        chmod -R +x "$MY"
+    fi
+else
+    echo "Directorio $MY no encontrado, creando y copiando archivos..."
+    cp -dr "$OH" "$MY"
+    chmod -R +x "$MY"
+fi
+
+hyprctl reload
+
+echo "Viendo si los cambios se han efectuado correctamente..."
+sleep 1
+
+if [ -d "$MY" ]; then
+    echo -e "${GREEN}Existe el directorio $MY!${RESET}"
+    if [ "$(ls -A "$MY")" ]; then
+        echo -e "${GREEN}En el directorio $MY hay archivos!${RESET}"
+    else
+        echo -e "${RED}No hay archivos en $MY :(${RESET}"
+        exit 1
+    fi
+else
+    echo -e "${RED}No existe el directorio $MY...${RESET}"
+    exit 1
+fi
+
+rm -rf ~/.oh-my-zsh
+git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
+
 plugins=(
 	"zsh-autosuggestions"
 	"zsh-syntax-highlighting"
