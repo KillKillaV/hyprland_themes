@@ -523,7 +523,8 @@ else
     echo -e "${RED}No existe el directorio $KI...${RESET}"
     exit 1
 fi
-
+rm -rf ~/.oh-my-zsh
+git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
 #OH="$HOME/hyprland_themes/theme_1/.oh-my-zsh"
 #MY="$HOME/.oh-my-zsh"
 #oh-my-zsh
@@ -586,8 +587,6 @@ else
     exit 1
 fi
 
-rm -rf ~/.oh-my-zsh
-git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
 
 plugins=(
 	"zsh-autosuggestions"
