@@ -93,11 +93,6 @@ else
     echo "La imagen ya existe en $DESTD"
 fi
 
-pgrep -x swww >/dev/null || swww init
-
-swww img "$DESTI" --transition-type grow --transition-duration 1
-
-
 if command -v firefox >/dev/null 2>&1; then
     echo "firefox ya esta instalado :) "
 else
