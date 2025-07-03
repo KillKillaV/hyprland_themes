@@ -3,6 +3,7 @@
 GREEN="\e[32m"
 RED="\e[31m"
 RESET="\e[0m"
+set -e
 ##############
 # Inicio
 while true; do
@@ -86,25 +87,7 @@ echo -e "${GREEN}Primer paso terminado :D...${RESET}"
 sleep 1
 echo -e "Comenzando con la configuración${RESET}"
 ######################################################
-ORIG="$HOME/hyprland_themes/theme_1/Wallpapers/l.jpg"
-DESTD="$HOME/Imágenes/Wallpapers"
-DESTI="$DESTD/l.jpg"
 
-mkdir -p "$DESTD"
-
-if [ ! -f "$DESTI" ]; then
-    echo "Copiando imagen a $DESTD..."
-    cp "$ORIG" "$DESTI"
-else
-    echo "La imagen ya existe en $DESTD"
-fi
-
-gestionar_config "Hyprland" "$DIRH" "$DIRHY" "$DIRBACKUP"
-gestionar_config "Waybar" "$DIRW" "$DIRWY" "$DIRBACKUP"
-gestionar_config "Wofi" "$WOFI" "$DIRWOFI" "$DIRBACKUP"
-gestionar_config "Waypaper" "$WAY" "$WAYPAPER" "$DIRBACKUP"
-gestionar_config "Fastfetch" "$FAST" "$FASTFETCH" "$DIRBACKUP"
-gestionar_config "Kitty" "$KI" "$TTY" "$DIRBACKUP"
 
 gestionar_config() {
     local nombre="$1"
@@ -155,6 +138,12 @@ gestionar_config() {
         exit 1
     fi
 }
+gestionar_config "Hyprland" "$DIRH" "$DIRHY" "$DIRBACKUP"
+gestionar_config "Waybar" "$DIRW" "$DIRWY" "$DIRBACKUP"
+gestionar_config "Wofi" "$WOFI" "$DIRWOFI" "$DIRBACKUP"
+gestionar_config "Waypaper" "$WAY" "$WAYPAPER" "$DIRBACKUP"
+gestionar_config "Fastfetch" "$FAST" "$FASTFETCH" "$DIRBACKUP"
+gestionar_config "Kitty" "$KI" "$TTY" "$DIRBACKUP"
 
 ###ohmyzsh###
 rm -rf ~/.oh-my-zsh
