@@ -44,7 +44,8 @@ cd yay
 makepkg -si
 sleep 2
 yay -S fastfetch
-
+yay -S waypaper
+yay -S hyprpaper
 # Añadiendo Nerd Fonts
 mkdir -p ~/.local/share/fonts && \
 git clone --filter=blob:none --sparse https://github.com/ryanoasis/nerd-fonts.git /tmp/nerd-fonts && \
