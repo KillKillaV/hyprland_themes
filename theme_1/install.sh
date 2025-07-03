@@ -58,8 +58,7 @@ rm -rf /tmp/nerd-fonts && \
 fc-cache -fv && \
 echo "Nerd Fonts añadidos."
 
-echo "Descargando plugins"
-PLUGINS_DIR="$HOME/.oh-my-zsh/custom/plugins"
+
 
 if command -v waybar >/dev/null 2>&1; then
     echo "waybar ya está instalado"
@@ -79,7 +78,7 @@ if ! command -v swww &> /dev/null; then
     echo "Instalando swww..."
     sudo pacman -S --noconfirm swww
 fi
-
+######################################################
 ORIG="$HOME/hyprland_themes/theme_1/Wallpapers/l.jpg"
 DESTD="$HOME/Imágenes/Wallpapers"
 DESTI="$DESTD/l.jpg"
@@ -147,7 +146,7 @@ else
 
     echo "Oh-My-Zsh ha sido instalado"
 fi
-# Situando .zshrc
+# Situando .zshrc######################
 rm $HOME/.zshrc
 cp $HOME/hyprland_themes/theme_1/.zshrc $HOME
 chmod +x $HOME/.zshrc
