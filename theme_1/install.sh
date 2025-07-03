@@ -75,6 +75,29 @@ else
     echo "Instalando..."
     sudo pacman -S kitty --noconfirm
 fi
+if ! command -v swww &> /dev/null; then
+    echo "Instalando swww..."
+    sudo pacman -S --noconfirm swww
+fi
+
+ORIG="$HOME/hyprland_themes/theme_1/Wallpapers/l.jpg"
+DESTD="$HOME/Imágenes/Wallpapers"
+DESTI="$DESTD/l.jpg"
+
+mkdir -p "$DESTD"
+
+if [ ! -f "$DESTI" ]; then
+    echo "Copiando imagen a $DESTD..."
+    cp "$ORIG" "$DESTI"
+else
+    echo "La imagen ya existe en $DESTD"
+fi
+
+pgrep -x swww >/dev/null || swww init
+
+swww img "$DESTI" --transition-type grow --transition-duration 1
+
+
 if command -v firefox >/dev/null 2>&1; then
     echo "firefox ya esta instalado :) "
 else
