@@ -107,7 +107,7 @@ DIRBACKUP="$HOME/.config/backups"
 ###################################  HYPR
 DIRH="$HOME/.config/hypr"
 DIRHY="$HOME/hyprland_themes/theme_1/hypr"
-if [ -d "$DIRH"]; then
+if [ -d "$DIRH" ]; then
     if [ "$(ls -A "$DIRH")" ]; then
         echo "El directorio $DIRH NO está vacío"
         echo "###########################!!!!!!!!!!!!!"
@@ -150,7 +150,7 @@ fi
 ###################################  WAYBAR
 DIRW="$HOME/.config/waybar"
 DIRWY="$HOME/hyprland_themes/theme_1/waybar"
-if [ -d "$DIRW"]; then
+if [ -d "$DIRW" ]; then
     if [ "$(ls -A "$DIRW")" ]; then
         echo "El directorio $DIRW NO está vacío"
         echo "###########################!!!!!!!!!!!!!"
@@ -193,7 +193,7 @@ fi
 ###################################  WOFI
 WOFI="$HOME/hyprland_themes/theme_1/wofi"
 WO="$HOME/.config/wofi"
-if [ -d "$WO"]; then
+if [ -d "$WO" ]; then
     if [ "$(ls -A "$WO")" ]; then
         echo "El directorio $WO NO está vacío"
         echo "###########################!!!!!!!!!!!!!"
@@ -236,7 +236,7 @@ fi
 ###################################  KITTY
 KI="$HOME/.config/kitty"
 TTY="$HOME/hyprland_themes/theme_1/kitty"
-if [ -d "$KI"]; then
+if [ -d "$KI" ]; then
     if [ "$(ls -A "$KI")" ]; then
         echo "El directorio $KI NO está vacío"
         echo "###########################!!!!!!!!!!!!!"
@@ -279,7 +279,7 @@ fi
 ###################################  FASTFETCH
 FAST="$HOME/.config/fastfetch"
 FASTFETCH="$HOME/hyprland_themes/theme_1/fastfetch"
-if [ -d "$FAST"]; then
+if [ -d "$FAST" ]; then
     if [ "$(ls -A "$FAST")" ]; then
         echo "El directorio $FAST NO está vacío"
         echo "###########################!!!!!!!!!!!!!"
@@ -322,7 +322,7 @@ fi
 ###################################  WAYPAPER
 WAY="$HOME/.config/waypaper"
 WAYPAPER="$HOME/hyprland_themes/theme_1/waypaper"
-if [ -d "$WAY"]; then
+if [ -d "$WAY" ]; then
     if [ "$(ls -A "$WAY")" ]; then
         echo "El directorio $WAY NO está vacío"
         echo "###########################!!!!!!!!!!!!!"
