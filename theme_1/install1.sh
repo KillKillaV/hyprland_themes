@@ -45,7 +45,7 @@ git sparse-checkout init --cone && \
 git sparse-checkout set patched-fonts/JetBrainsMono && \
 ./install.sh JetBrainsMono && \
 cd ~ && \
-rm -rf /tmp/nerd-fonts && \
+rm -rdvf /tmp/nerd-fonts && \
 fc-cache -fv && \
 echo "Nerd Fonts añadidos."
 ###################
@@ -67,111 +67,291 @@ paquetes=("zsh" "waybar" "kitty" "swww" "firefox" "thunar" "wofi" "waypaper")
 for paquete in "${paquetes[@]}"; do
     instalar_si_no_existe "$paquete"
 done
-###################
-if [ -d "$HOME/.oh-my-zsh" ]; then
-    echo "Oh-My-Zsh ya está instalado"
-else
-    echo "Oh-My-Zsh no encontrado. Instalando..."
-    RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-    echo "Oh-My-Zsh ha sido instalado"
-fi
+##################
 #########
 ##ZSHRC##
-rm $HOME/.zshrc
+rm -rdvf $HOME/.zshrc
 cp $HOME/hyprland_themes/theme_1/.zshrc $HOME
 chmod +x $HOME/.zshrc
 echo "HECHO"
 sleep 1
 echo -e "${GREEN}Primer paso terminado :D...${RESET}"
 sleep 1
-echo -e "Comenzando con la configuración${RESET}"
+echo -e "${GREEN}Comenzando con la configuración${RESET}"
 ######################################################
-
-
-gestionar_config() {
-    local nombre="$1"
-    local destino="$2"
-    local fuente="$3"
-    local backupdir="$4"
-
-    echo "### Configuración para $nombre ###"
-
-    if [ -d "$destino" ]; then
-        if [ "$(ls -A "$destino")" ]; then
-            echo "El directorio $destino NO está vacío."
-            while true; do
-                read -p "¿Hacer backup de $nombre en $backupdir? (y/n): " backup
-                case "$backup" in
-                    [yY]) 
-                        echo "Realizando copia..."
-                        mkdir -p "$backupdir"
-                        cp -r "$destino" "$backupdir"
-                        break
-                        ;;
-                    [nN]) 
-                        echo "Saltando backup..."
-                        break
-                        ;;
-                    *) echo "Por favor elige y/n" ;;
-                esac
-            done
-            echo "Eliminando $destino"
-            rm -rf "$destino"
-        else
-            echo "$destino existe pero está vacío."
-        fi
+DIRBACKUP="$HOME/.config/backups"
+###################################  HYPR
+DIRH="$HOME/.config/hypr"
+DIRHY="$HOME/hyprland_themes/theme_1/hypr"
+if [ -d "$DIRH"]; then
+    if [ "$(ls -A "$DIRH")" ]; then
+        echo "El directorio $DIRH NO está vacío"
+        echo "###########################!!!!!!!!!!!!!"
+        echo "###########################!!!!!!!!!!!!!"
+        while true; do
+            echo -n "¿Desearias hacer copia de seguridad de tus archivos en la carpeta $DIRH que va a crear una backup en la carpeta $DIRBACKUP? (y/n) "
+            read backup
+                if [[ $backup == "y" || $backup == "Y" ]]; then
+                    echo "Realizando copia..."
+                    cp -r -d $DIRH $DIRBACKUP
+                    rm -rdvf $DIRH
+                    echo "Copia realizandose =D"
+                    cp -dr $DIRHY $HOME/.config
+                    echo "Ahora estableceremos permisos de ejecución..."
+                    chmod -R +x $DIRH
+                    sleep 1
+                    break
+                elif [[ $backup == "n" || $backup == "N" ]]; then
+                    echo "Entendido... borrando y copiando los archivos..."
+                    rm -rdfv $DIRH
+                    mkdir $DIRH
+                    cp -dr $DIRHY $HOME/.config
+                    echo "Ahora le daremos permisos de ejecución"
+                    chmod -R +x $DIRH
+                    break
+                else 
+                    echo -e "${RED}Porfavor selecciona una opcion valida${RESET}"
+                fi
+        done
     else
-        echo "$destino no existe. Será creado."
+        echo "El directorio $DIRH está vacío."
+        echo "Copiando archivos..."
+        cp -dr $DIRHY $HOME/.config
     fi
-
-    echo "Copiando nueva configuración desde $fuente"
-    cp -r "$fuente" "$destino"
-    chmod -R +x "$destino"
-    
-    echo "Verificando resultado..."
-    sleep 1
-    if [ -d "$destino" ] && [ "$(ls -A "$destino")" ]; then
-        echo -e "${GREEN}✔ $nombre configurado correctamente en $destino${RESET}"
+else
+    echo "Directorio no encontrado"
+    echo "Copiando archivos hacia $DIRH"
+    cp -dr $DIRHY $HOME/.config
+fi
+###################################  WAYBAR
+DIRW="$HOME/.config/waybar"
+DIRWY="$HOME/hyprland_themes/theme_1/waybar"
+if [ -d "$DIRW"]; then
+    if [ "$(ls -A "$DIRW")" ]; then
+        echo "El directorio $DIRW NO está vacío"
+        echo "###########################!!!!!!!!!!!!!"
+        echo "###########################!!!!!!!!!!!!!"
+        while true; do
+            echo -n "¿Desearias hacer copia de seguridad de tus archivos en la carpeta $DIRW que va a crear una backup en la carpeta $DIRBACKUP? (y/n) "
+            read backup
+                if [[ $backup == "y" || $backup == "Y" ]]; then
+                    echo "Realizando copia..."
+                    cp -r -d $DIRW $DIRBACKUP
+                    rm -rdvf $DIRW
+                    echo "Copia realizandose =D"
+                    cp -dr $DIRWY $HOME/.config
+                    echo "Ahora estableceremos permisos de ejecución..."
+                    chmod -R +x $DIRW
+                    sleep 1
+                    break
+                elif [[ $backup == "n" || $backup == "N" ]]; then
+                    echo "Entendido... borrando y copiando los archivos..."
+                    rm -rdfv $DIRW
+                    mkdir $DIRW
+                    cp -dr $DIRWY $HOME/.config
+                    echo "Ahora le daremos permisos de ejecución"
+                    chmod -R +x $DIRW
+                    break
+                else 
+                    echo -e "${RED}Porfavor selecciona una opcion valida${RESET}"
+                fi
+        done
     else
-        echo -e "${RED}✖ Error al configurar $nombre${RESET}"
-        exit 1
+        echo "El directorio $DIRW está vacío."
+        echo "Copiando archivos..."
+        cp -dr $DIRWY $HOME/.config
     fi
-}
-gestionar_config "Hyprland" "$DIRH" "$DIRHY" "$DIRBACKUP"
-gestionar_config "Waybar" "$DIRW" "$DIRWY" "$DIRBACKUP"
-gestionar_config "Wofi" "$WOFI" "$DIRWOFI" "$DIRBACKUP"
-gestionar_config "Waypaper" "$WAY" "$WAYPAPER" "$DIRBACKUP"
-gestionar_config "Fastfetch" "$FAST" "$FASTFETCH" "$DIRBACKUP"
-gestionar_config "Kitty" "$KI" "$TTY" "$DIRBACKUP"
-
+else
+    echo "Directorio no encontrado"
+    echo "Copiando archivos hacia $DIRW"
+    cp -dr $DIRWY $HOME/.config
+fi
+###################################  WOFI
+WOFI="$HOME/hyprland_themes/theme_1/wofi"
+WO="$HOME/.config/wofi"
+if [ -d "$WO"]; then
+    if [ "$(ls -A "$WO")" ]; then
+        echo "El directorio $WO NO está vacío"
+        echo "###########################!!!!!!!!!!!!!"
+        echo "###########################!!!!!!!!!!!!!"
+        while true; do
+            echo -n "¿Desearias hacer copia de seguridad de tus archivos en la carpeta $WO que va a crear una backup en la carpeta $DIRBACKUP? (y/n) "
+            read backup
+                if [[ $backup == "y" || $backup == "Y" ]]; then
+                    echo "Realizando copia..."
+                    cp -r -d $WO $DIRBACKUP
+                    rm -rdvf $WO
+                    echo "Copia realizandose =D"
+                    cp -dr $WOFI $HOME/.config
+                    echo "Ahora estableceremos permisos de ejecución..."
+                    chmod -R +x $WO
+                    sleep 1
+                    break
+                elif [[ $backup == "n" || $backup == "N" ]]; then
+                    echo "Entendido... borrando y copiando los archivos..."
+                    rm -rdfv $WO
+                    mkdir $WO
+                    cp -dr $WOFI $HOME/.config
+                    echo "Ahora le daremos permisos de ejecución"
+                    chmod -R +x $WO
+                    break
+                else 
+                    echo -e "${RED}Porfavor selecciona una opcion valida${RESET}"
+                fi
+        done
+    else
+        echo "El directorio $WO está vacío."
+        echo "Copiando archivos..."
+        cp -dr $WOFI $HOME/.config
+    fi
+else
+    echo "Directorio no encontrado"
+    echo "Copiando archivos hacia $WO"
+    cp -dr $WOFI $HOME/.config
+fi
+###################################  KITTY
+KI="$HOME/.config/kitty"
+TTY="$HOME/hyprland_themes/theme_1/kitty"
+if [ -d "$KI"]; then
+    if [ "$(ls -A "$KI")" ]; then
+        echo "El directorio $KI NO está vacío"
+        echo "###########################!!!!!!!!!!!!!"
+        echo "###########################!!!!!!!!!!!!!"
+        while true; do
+            echo -n "¿Desearias hacer copia de seguridad de tus archivos en la carpeta $KI que va a crear una backup en la carpeta $DIRBACKUP? (y/n) "
+            read backup
+                if [[ $backup == "y" || $backup == "Y" ]]; then
+                    echo "Realizando copia..."
+                    cp -r -d $KI $DIRBACKUP
+                    rm -rdvf $KI
+                    echo "Copia realizandose =D"
+                    cp -dr $TTY $HOME/.config
+                    echo "Ahora estableceremos permisos de ejecución..."
+                    chmod -R +x $KI
+                    sleep 1
+                    break
+                elif [[ $backup == "n" || $backup == "N" ]]; then
+                    echo "Entendido... borrando y copiando los archivos..."
+                    rm -rdfv $KI
+                    mkdir $KI
+                    cp -dr $TTY $HOME/.config
+                    echo "Ahora le daremos permisos de ejecución"
+                    chmod -R +x $KI
+                    break
+                else 
+                    echo -e "${RED}Porfavor selecciona una opcion valida${RESET}"
+                fi
+        done
+    else
+        echo "El directorio $KI está vacío."
+        echo "Copiando archivos..."
+        cp -dr $TTY $HOME/.config
+    fi
+else
+    echo "Directorio no encontrado"
+    echo "Copiando archivos hacia $KI"
+    cp -dr $TTY $HOME/.config
+fi
+###################################  FASTFETCH
+FAST="$HOME/.config/fastfetch"
+FASTFETCH="$HOME/hyprland_themes/theme_1/fastfetch"
+if [ -d "$FAST"]; then
+    if [ "$(ls -A "$FAST")" ]; then
+        echo "El directorio $FAST NO está vacío"
+        echo "###########################!!!!!!!!!!!!!"
+        echo "###########################!!!!!!!!!!!!!"
+        while true; do
+            echo -n "¿Desearias hacer copia de seguridad de tus archivos en la carpeta $FAST que va a crear una backup en la carpeta $DIRBACKUP? (y/n) "
+            read backup
+                if [[ $backup == "y" || $backup == "Y" ]]; then
+                    echo "Realizando copia..."
+                    cp -r -d $FAST $DIRBACKUP
+                    rm -rdvf $FAST
+                    echo "Copia realizandose =D"
+                    cp -dr $FASTFETCH $HOME/.config
+                    echo "Ahora estableceremos permisos de ejecución..."
+                    chmod -R +x $FAST
+                    sleep 1
+                    break
+                elif [[ $backup == "n" || $backup == "N" ]]; then
+                    echo "Entendido... borrando y copiando los archivos..."
+                    rm -rdfv $FAST
+                    mkdir $FAST
+                    cp -dr $FASTFETCH $HOME/.config
+                    echo "Ahora le daremos permisos de ejecución"
+                    chmod -R +x $FAST
+                    break
+                else 
+                    echo -e "${RED}Porfavor selecciona una opcion valida${RESET}"
+                fi
+        done
+    else
+        echo "El directorio $FAST está vacío."
+        echo "Copiando archivos..."
+        cp -dr $FASTFETCH $HOME/.config
+    fi
+else
+    echo "Directorio no encontrado"
+    echo "Copiando archivos hacia $FAST"
+    cp -dr $FASTFETCH $HOME/.config
+fi
+###################################  WAYPAPER
+WAY="$HOME/.config/waypaper"
+WAYPAPER="$HOME/hyprland_themes/theme_1/waypaper"
+if [ -d "$WAY"]; then
+    if [ "$(ls -A "$WAY")" ]; then
+        echo "El directorio $WAY NO está vacío"
+        echo "###########################!!!!!!!!!!!!!"
+        echo "###########################!!!!!!!!!!!!!"
+        while true; do
+            echo -n "¿Desearias hacer copia de seguridad de tus archivos en la carpeta $WAY que va a crear una backup en la carpeta $DIRBACKUP? (y/n) "
+            read backup
+                if [[ $backup == "y" || $backup == "Y" ]]; then
+                    echo "Realizando copia..."
+                    cp -r -d $WAY $DIRBACKUP
+                    rm -rdvf $WAY
+                    echo "Copia realizandose =D"
+                    cp -dr $WAYPAPER $HOME/.config
+                    echo "Ahora estableceremos permisos de ejecución..."
+                    chmod -R +x $WAY
+                    sleep 1
+                    break
+                elif [[ $backup == "n" || $backup == "N" ]]; then
+                    echo "Entendido... borrando y copiando los archivos..."
+                    rm -rdfv $WAY
+                    mkdir $WAY
+                    cp -dr $WAYPAPER $HOME/.config
+                    echo "Ahora le daremos permisos de ejecución"
+                    chmod -R +x $WAY
+                    break
+                else 
+                    echo -e "${RED}Porfavor selecciona una opcion valida${RESET}"
+                fi
+        done
+    else
+        echo "El directorio $WAY está vacío."
+        echo "Copiando archivos..."
+        cp -dr $WAYPAPER $HOME/.config
+    fi
+else
+    echo "Directorio no encontrado"
+    echo "Copiando archivos hacia $WAY"
+    cp -dr $WAYPAPER $HOME/.config
+fi
+######################################################
 ###ohmyzsh###
-rm -rf ~/.oh-my-zsh
+rm -rdvf ~/.oh-my-zsh
 git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
-plugins=(
-	"zsh-autosuggestions"
-	"zsh-syntax-highlighting"
-	"zsh-history-substring-search"
-)
-repos=(
-	"https://github.com/zsh-users/zsh-autosuggestions"
-	"https://github.com/zsh-users/zsh-syntax-highlighting"
-	"https://github.com/zsh-users/zsh-history-substring-search"
-)
+##PLUGINS##
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
+    ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions \
+    ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-history-substring-search \
+    ~/.oh-my-zsh/custom/plugins/zsh-history-substring-search
 
-for i in "${!plugins[@]}"; do
-    plugin="${plugins[$i]}"
-    repo="${repos[$i]}"
-    PLUGIN_PATH="$PLUGINS_DIR/$plugin"
 
-    if [ -d "$PLUGIN_PATH" ]; then
-        echo "Actualizando $plugin..."
-        git -C "$PLUGIN_PATH" pull
-    else
-        echo "Clonando $plugin..."
-        git clone "$repo" "$PLUGIN_PATH"
-    fi
-done
+###Reinicio
 echo "Hecho, reiniciando en 5"
 sleep 1
 echo "4"
