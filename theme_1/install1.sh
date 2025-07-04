@@ -62,7 +62,7 @@ instalar_si_no_existe() {
     fi
 }
 
-paquetes=("zsh" "waybar" "kitty" "swww" "firefox" "thunar" "wofi" "waypaper")
+paquetes=("zsh" "waybar" "kitty" "swww" "firefox" "thunar" "wofi" "waypaper" "fastfetch")
  
 for paquete in "${paquetes[@]}"; do
     instalar_si_no_existe "$paquete"
