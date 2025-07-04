@@ -349,8 +349,27 @@ git clone https://github.com/zsh-users/zsh-autosuggestions \
     ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-history-substring-search \
     ~/.oh-my-zsh/custom/plugins/zsh-history-substring-search
+######################################################
+WALLPAPERS_DIR="$HOME/Wallpapers"
+SOURCE_DIR="$HOME/hyprland_themes/theme_1/Wallpapers"
+FILE_NAME="l.jpg"
 
-
+if [ -d "$WALLPAPERS_DIR" ]; then
+    if [ ! -f "$WALLPAPERS_DIR/$FILE_NAME" ]; then
+        cp "$SOURCE_DIR/$FILE_NAME" "$WALLPAPERS_DIR/"
+        echo "Archivo $FILE_NAME copiado a $WALLPAPERS_DIR."
+    else
+        echo "Archivo $FILE_NAME ya existe en $WALLPAPERS_DIR"
+    fi
+else
+    cp -r "$SOURCE_DIR" "$HOME"
+    echo "Carpeta Wallpapers $SOURCE_DIR a $HOME."
+fi
+###############
+hyprctl reload 
+killall waybar 
+waybar &
+zsh
 ###Reinicio
 echo "Hecho, reiniciando en 5"
 sleep 1
