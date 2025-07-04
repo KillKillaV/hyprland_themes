@@ -391,9 +391,7 @@ else
 fi
 ###############
 hyprctl reload 
-killall waybar 
-waybar &
-zsh
+chsh -s /usr/bin/zsh
 ###Reinicio
 echo "Hecho, reiniciando en 5"
 sleep 1
