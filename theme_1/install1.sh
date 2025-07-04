@@ -86,9 +86,16 @@ else
 
 fi
 
+if command -v hyprpaper >/dev/null 2>&1; then
+    echo "hyprpaper ya esta instalado"
+else
+    echo "Instalando hyprpaper..."
+    yay -S hyprpaper
+
 if command -v waypaper >/dev/null 2>&1; then
     echo "waypaper ya esta instalado"
 else
+    echo "Instalando waypaper"
     yay -S waypaper
 fi
 
