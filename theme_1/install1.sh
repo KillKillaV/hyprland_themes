@@ -79,7 +79,7 @@ else
 
     cd /tmp/yay || { echo "Error al entrar al directorio yay"; exit 1; }
 
-    sudo makepkg -si --noconfirm
+    makepkg -si --noconfirm
 
     cd ~
     rm -rf /tmp/yay
@@ -392,6 +392,7 @@ fi
 ###############
 hyprctl reload 
 chsh -s /usr/bin/zsh
+
 ###Reinicio
 echo "Hecho, reiniciando en 5"
 sleep 1
