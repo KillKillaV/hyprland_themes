@@ -89,7 +89,7 @@ fi
 if command -v waypaper >/dev/null 2>&1; then
     echo "waypaper ya esta instalado"
 else
-    sudo yay -S waypaper
+    yay -S waypaper
 fi
 
 #########
