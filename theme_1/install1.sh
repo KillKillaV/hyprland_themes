@@ -62,7 +62,7 @@ instalar_si_no_existe() {
     fi
 }
 
-paquetes=("zsh" "waybar" "kitty" "swww" "firefox" "thunar" "wofi" "fastfetch" "yay")
+paquetes=("zsh" "waybar" "kitty" "swww" "firefox" "thunar" "wofi" "fastfetch")
  
 for paquete in "${paquetes[@]}"; do
     instalar_si_no_existe "$paquete"
@@ -73,13 +73,13 @@ if command -v yay &> /dev/null
 then
     echo "yay ya está instalado"
 else
-    echo "${RED}yay no está instalado${RESET}"
+    echo -e "${RED}yay no está instalado${RESET}"
 
     git clone https://aur.archlinux.org/yay.git /tmp/yay
 
     cd /tmp/yay || { echo "Error al entrar al directorio yay"; exit 1; }
 
-    makepkg -si --noconfirm
+    sudo makepkg -si --noconfirm
 
     cd ~
     rm -rf /tmp/yay
