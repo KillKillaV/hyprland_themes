@@ -394,14 +394,14 @@ git clone https://github.com/zsh-users/zsh-history-substring-search \
 ######################################################
 ###ohmyzsh###root
 sudo rm -rdvf //root/.oh-my-zsh
-git clone https://github.com/ohmyzsh/ohmyzsh.git //root/.oh-my-zsh
+sudo git clone https://github.com/ohmyzsh/ohmyzsh.git //root/.oh-my-zsh
 ##PLUGINS##
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
-    //root/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-autosuggestions \
-    //root/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-history-substring-search \
-    //root/.oh-my-zsh/custom/plugins/zsh-history-substring-search
+sudo git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
+    /root/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+sudo git clone https://github.com/zsh-users/zsh-autosuggestions \
+    /root/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+sudo git clone https://github.com/zsh-users/zsh-history-substring-search \
+    /root/.oh-my-zsh/custom/plugins/zsh-history-substring-search
 ######################################################
 WALLPAPERS_DIR="$HOME/Wallpapers"
 SOURCE_DIR="$HOME/hyprland_themes/theme_1/Wallpapers"
