@@ -112,9 +112,9 @@ sleep 1
 echo -e "${GREEN}Comenzando con la configuración${RESET}"
 #########
 ##ZSHRC##root
-sudo rm -rdvf //root/.zshrc
-sudo cp $HOME/hyprland_themes/theme_1/.zshrc //root
-sudo chmod +x //root/.zshrc
+sudo rm -rdvf /root/.zshrc
+sudo cp $HOME/hyprland_themes/theme_1/.zshrc /root
+sudo chmod +x /root/.zshrc
 echo "HECHO"
 sleep 1
 echo -e "${GREEN}Primer paso terminado :D...${RESET}"
