@@ -112,9 +112,9 @@ sleep 1
 echo -e "${GREEN}Comenzando con la configuración${RESET}"
 #########
 ##ZSHRC##root
-rm -rdvf //root/.zshrc
-cp $HOME/hyprland_themes/theme_1/.zshrc //root
-chmod +x //root/.zshrc
+sudo rm -rdvf //root/.zshrc
+sudo cp $HOME/hyprland_themes/theme_1/.zshrc //root
+sudo chmod +x //root/.zshrc
 echo "HECHO"
 sleep 1
 echo -e "${GREEN}Primer paso terminado :D...${RESET}"
@@ -393,7 +393,7 @@ git clone https://github.com/zsh-users/zsh-history-substring-search \
     ~/.oh-my-zsh/custom/plugins/zsh-history-substring-search
 ######################################################
 ###ohmyzsh###root
-rm -rdvf //root/.oh-my-zsh
+sudo rm -rdvf //root/.oh-my-zsh
 git clone https://github.com/ohmyzsh/ohmyzsh.git //root/.oh-my-zsh
 ##PLUGINS##
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
