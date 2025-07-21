@@ -1,0 +1,90 @@
+* {
+    border: none;
+    border-radius: 0px;
+    font-family: JetBrainsMono Nerd Font;
+    font-size: 13px;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+window#waybar {
+    background-color: rgba(20, 20, 30, 0.85); /* fondo oscuro, suave y elegante */
+    color: #e0e0e0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 4px 8px;
+}
+
+/* === Oculto === */
+window#waybar.hidden {
+    opacity: 0.1;
+}
+
+/* === Workspaces === */
+#workspaces {
+    margin: 0 8px;
+}
+
+#workspaces button {
+    background: transparent;
+    color: #888;
+    padding: 0 6px;
+    margin: 0 2px;
+    border-radius: 6px;
+}
+
+#workspaces button.active {
+    background-color: #7a0d0d; /* verde pastel */
+    color: #000000;
+}
+
+/* === Módulos uniformes y sutiles === */
+#network,
+#pulseaudio,
+#battery,
+#clock,
+#memory,
+#disk,
+#cpu,
+#backlight,
+#tray,
+#custom-launcher,
+#custom-power,
+#custom-updates,
+#custom-media {
+    padding: 0 10px;
+    margin: 0 4px;
+    background: transparent;
+    border: none;
+    color: #dddddd;
+}
+
+/* === Custom launcher === */
+#custom-launcher {
+    font-size: 18px;
+    color: #ff0000; /* azul pastel */
+}
+
+/* === Updates y Media === */
+#custom-updates,
+#custom-media {
+    color: #f9e2af; /* amarillo pastel */
+}
+
+/* === Batería crítica === */
+#battery.critical:not(.charging) {
+    color: #f38ba8; /* rosa pastel */
+    font-weight: bold;
+    animation-name: blink;
+    animation-duration: 0.6s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes blink {
+    to {
+        color: #1e1e2e;
+        background-color: #f38ba8;
+    }
+}
+
