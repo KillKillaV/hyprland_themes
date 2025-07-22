@@ -32,7 +32,7 @@ Antes de aplicar cualquiera de los temas, asegúrate de tener instalado:
 
 ### Theme_1
 <p align="center">
-  <img src="https://github.com/KillKillaV/hyprland_themes/blob/main/pictures/theme_1.png" width="150px"/>
+  <img src="https://github.com/KillKillaV/hyprland_themes/blob/main/pictures/theme_1.png" width="600px"/>
 </p>
 
 ---
