@@ -37,7 +37,19 @@ Antes de aplicar cualquiera de los temas, asegúrate de tener instalado:
 
 ### Theme_2
 <p align="center">
-  <img src="https://github.com/KillKillaV/hyprland_themes/blob/main/pictures/theme_1.png" width="1000px"/>
+  <img src="https://github.com/KillKillaV/hyprland_themes/blob/main/pictures/theme_2.png" width="1000px"/>
 </p>
 
 ---
+
+## 🧰 ¿Cómo usar? (Automático)
+
+- Clona el repositorio
+⚠️Clónalo en tu /home/$USER, no en alguna otra carpeta; después de la instalación, puede decidir si quiere borrar el repositorio.⚠️
+
+
+`https://github.com/KillKillaV/hyprland_themes`
+- Ejecuta el Script Automático y sigue los pasos
+
+`chmod +x install.sh`
+`./install.sh`
