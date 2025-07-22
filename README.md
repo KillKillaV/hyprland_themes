@@ -48,8 +48,8 @@ Antes de aplicar cualquiera de los temas, asegúrate de tener instalado:
 ⚠️Clónalo en tu /home/$USER, no en alguna otra carpeta; después de la instalación, puede decidir si quiere borrar el repositorio.⚠️
 
 
-`https://github.com/KillKillaV/hyprland_themes`
+`git clone https://github.com/KillKillaV/hyprland_themes`
 - Ejecuta el Script Automático y sigue los pasos
 
-`chmod +x install.sh`
-`./install.sh`
+1.- `chmod +x install.sh`
+2.- `./install.sh`
