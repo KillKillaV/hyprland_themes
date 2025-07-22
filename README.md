@@ -5,10 +5,12 @@
   Explora, personaliza y transforma tu entorno de escritorio Linux con estilo.
 </p>
 
-[![Stars](https://img.shields.io/github/stars/KillKillaV/hyprland_themes?style=flat-square)](https://github.com/KillKillaV/hyprland_themes)
-[![Forks](https://img.shields.io/github/forks/KillKillaV/hyprland_themes?style=flat-square)](https://github.com/KillKillaV/hyprland_themes)
-[![Commits](https://img.shields.io/github/commits-since/KillKillaV/hyprland_themes/latest/master?style=flat-square)](https://github.com/KillKillaV/hyprland_themes)
-[![Last Commit](https://img.shields.io/github/last-commit/KillKillaV/hyprland_themes?style=flat-square)](https://github.com/KillKillaV/hyprland_themes)
+<p align="center">
+  <img src="https://img.shields.io/github/stars/KillKillaV/hyprland_themes?style=flat-square" alt="Stars">
+  <img src="https://img.shields.io/github/forks/KillKillaV/hyprland_themes?style=flat-square" alt="Forks">
+  <img src="https://img.shields.io/github/last-commit/KillKillaV/hyprland_themes?style=flat-square" alt="Last Commit">
+</p>
+
 
 ---
 
