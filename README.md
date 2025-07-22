@@ -5,6 +5,11 @@
   Explora, personaliza y transforma tu entorno de escritorio Linux con estilo.
 </p>
 
+[![Stars](https://img.shields.io/github/stars/KillKillaV/hyprland_themes?style=flat-square)](https://github.com/KillKillaV/hyprland_themes)
+[![Forks](https://img.shields.io/github/forks/KillKillaV/hyprland_themes?style=flat-square)](https://github.com/KillKillaV/hyprland_themes)
+[![Commits](https://img.shields.io/github/commits-since/KillKillaV/hyprland_themes/latest/master?style=flat-square)](https://github.com/KillKillaV/hyprland_themes)
+[![Last Commit](https://img.shields.io/github/last-commit/KillKillaV/hyprland_themes?style=flat-square)](https://github.com/KillKillaV/hyprland_themes)
+
 ---
 
 ## 📦 ¿Qué es este repositorio?
@@ -19,7 +24,7 @@ Este repositorio recopila **temas personalizados** para el entorno gráfico **Hy
 
 ---
 
-## 🖥️ Requisitos
+## Requisitos
 
 Antes de aplicar cualquiera de los temas, asegúrate de tener instalado:
 
@@ -28,7 +33,7 @@ Antes de aplicar cualquiera de los temas, asegúrate de tener instalado:
 
 ---
 
-## 🌟 Temas disponibles
+## Temas disponibles
 
 ### Theme_1
 <p align="center">
@@ -42,7 +47,7 @@ Antes de aplicar cualquiera de los temas, asegúrate de tener instalado:
 
 ---
 
-## 🧰 ¿Cómo usar? (Automático)
+## ¿Cómo usar? (Automático)
 
 - Clona el repositorio
 ⚠️Clónalo en tu /home/$USER, no en alguna otra carpeta; después de la instalación, puede decidir si quiere borrar el repositorio.⚠️
