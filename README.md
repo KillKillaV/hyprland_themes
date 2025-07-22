@@ -11,11 +11,11 @@
 
 Este repositorio recopila **temas personalizados** para el entorno gráfico **Hyprland**, junto con archivos de configuración (`hyprland.conf`), scripts de apoyo y estilos para herramientas como:
 
-- 🌐 Waybar
-- 🎨 Wofi
-- 🧩 Fastfetch
-- 🖼️ Wallpapers (fondos de pantalla)
-- 🛠️ Scripts de personalización automática
+-  Waybar
+-  Wofi
+-  Fastfetch
+-  Wallpapers (fondos de pantalla)
+-  Scripts de personalización automática
 
 ---
 
@@ -23,7 +23,7 @@ Este repositorio recopila **temas personalizados** para el entorno gráfico **Hy
 
 Antes de aplicar cualquiera de los temas, asegúrate de tener instalado:
 
-- [Hyprland](https://github.com/hyprwm/Hyprland)
+- Hyprland (En ArchLinux)
 - Acceso a Internet
 
 ---
@@ -32,7 +32,12 @@ Antes de aplicar cualquiera de los temas, asegúrate de tener instalado:
 
 ### Theme_1
 <p align="center">
-  <img src="https://github.com/KillKillaV/hyprland_themes/blob/main/pictures/theme_1.png" width="600px"/>
+  <img src="https://github.com/KillKillaV/hyprland_themes/blob/main/pictures/theme_1.png" width="1000px"/>
+</p>
+
+### Theme_2
+<p align="center">
+  <img src="https://github.com/KillKillaV/hyprland_themes/blob/main/pictures/theme_1.png" width="1000px"/>
 </p>
 
 ---
