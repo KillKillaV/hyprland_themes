@@ -9,18 +9,16 @@
 }
 
 window#waybar {
-    background-color: rgba(20, 20, 30, 0.85); /* fondo oscuro, suave y elegante */
+    background-color: rgba(20, 20, 30, 0.85);
     color: #e0e0e0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     padding: 4px 8px;
 }
 
-/* === Oculto === */
 window#waybar.hidden {
     opacity: 0.1;
 }
 
-/* === Workspaces === */
 #workspaces {
     margin: 0 8px;
 }
@@ -34,11 +32,10 @@ window#waybar.hidden {
 }
 
 #workspaces button.active {
-    background-color: #7a0d0d; /* verde pastel */
+    background-color: #7a0d0d; 
     color: #000000;
 }
 
-/* === Módulos uniformes y sutiles === */
 #network,
 #pulseaudio,
 #battery,
@@ -59,21 +56,19 @@ window#waybar.hidden {
     color: #dddddd;
 }
 
-/* === Custom launcher === */
 #custom-launcher {
     font-size: 18px;
-    color: #ff0000; /* azul pastel */
+    color: #ff0000;
 }
 
-/* === Updates y Media === */
+
 #custom-updates,
 #custom-media {
-    color: #f9e2af; /* amarillo pastel */
+    color: #f9e2af;
 }
 
-/* === Batería crítica === */
 #battery.critical:not(.charging) {
-    color: #f38ba8; /* rosa pastel */
+    color: #f38ba8; 
     font-weight: bold;
     animation-name: blink;
     animation-duration: 0.6s;
