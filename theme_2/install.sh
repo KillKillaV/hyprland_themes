@@ -7,7 +7,7 @@ set -e
 ##############
 # Inicio
 while true; do
-    echo -n -e "${RED}Esto inicia la instalación del theme_1. ¿Quieres continuar? (y/n) "
+    echo -n -e "${RED}Esto inicia la instalación del theme_2. ¿Quieres continuar? (y/n) "
     read decision
          if [[ "$decision" == "y" || "$decision" == "Y" ]]; then
             echo -e "${GREEN}Iniciando instalacion..."
@@ -103,7 +103,7 @@ fi
 #########
 ##ZSHRC##
 rm -rdvf /home/$USER/.zshrc
-cp $HOME/hyprland_themes/theme_1/.zshrc /home/$USER
+cp $HOME/hyprland_themes/theme_2/.zshrc /home/$USER
 chmod +x /home/$USER/.zshrc
 echo "HECHO"
 sleep 1
@@ -113,7 +113,7 @@ echo -e "${GREEN}Comenzando con la configuración${RESET}"
 #########
 ##ZSHRC##root
 sudo rm -rdvf /root/.zshrc
-sudo cp $HOME/hyprland_themes/theme_1/.zshrc /root
+sudo cp $HOME/hyprland_themes/theme_2/.zshrc /root
 sudo chmod +x /root/.zshrc
 echo "HECHO"
 sleep 1
@@ -124,7 +124,7 @@ echo -e "${GREEN}Comenzando con la configuración${RESET}"
 DIRBACKUP="/home/$USER/.config/backups"
 ###################################  HYPR
 DIRH="/home/$USER/.config/hypr"
-DIRHY="/home/$USER/hyprland_themes/theme_1/hypr"
+DIRHY="/home/$USER/hyprland_themes/theme_2/hypr"
 if [ -d "$DIRH" ]; then
     if [ "$(ls -A "$DIRH")" ]; then
         echo "El directorio $DIRH NO está vacío"
@@ -167,7 +167,7 @@ else
 fi
 ###################################  WAYBAR
 DIRW="/home/$USER/.config/waybar"
-DIRWY="/home/$USER/hyprland_themes/theme_1/waybar"
+DIRWY="/home/$USER/hyprland_themes/theme_2/waybar"
 if [ -d "$DIRW" ]; then
     if [ "$(ls -A "$DIRW")" ]; then
         echo "El directorio $DIRW NO está vacío"
@@ -209,7 +209,7 @@ else
     cp -dr $DIRWY /home/$USER/.config
 fi
 ###################################  WOFI
-WOFI="/home/$USER/hyprland_themes/theme_1/wofi"
+WOFI="/home/$USER/hyprland_themes/theme_2/wofi"
 WO="/home/$USER/.config/wofi"
 if [ -d "$WO" ]; then
     if [ "$(ls -A "$WO")" ]; then
@@ -253,7 +253,7 @@ else
 fi
 ###################################  KITTY
 KI="/home/$USER/.config/kitty"
-TTY="/home/$USER/hyprland_themes/theme_1/kitty"
+TTY="/home/$USER/hyprland_themes/theme_2/kitty"
 if [ -d "$KI" ]; then
     if [ "$(ls -A "$KI")" ]; then
         echo "El directorio $KI NO está vacío"
@@ -296,7 +296,7 @@ else
 fi
 ###################################  FASTFETCH
 FAST="/home/$USER/.config/fastfetch"
-FASTFETCH="/home/$USER/hyprland_themes/theme_1/fastfetch"
+FASTFETCH="/home/$USER/hyprland_themes/theme_2/fastfetch"
 if [ -d "$FAST" ]; then
     if [ "$(ls -A "$FAST")" ]; then
         echo "El directorio $FAST NO está vacío"
@@ -339,7 +339,7 @@ else
 fi
 ###################################  WAYPAPER
 WAY="/home/$USER/.config/waypaper"
-WAYPAPER="/home/$USER/hyprland_themes/theme_1/waypaper"
+WAYPAPER="/home/$USER/hyprland_themes/theme_2/waypaper"
 if [ -d "$WAY" ]; then
     if [ "$(ls -A "$WAY")" ]; then
         echo "El directorio $WAY NO está vacío"
@@ -404,8 +404,8 @@ sudo git clone https://github.com/zsh-users/zsh-history-substring-search \
     /root/.oh-my-zsh/custom/plugins/zsh-history-substring-search
 ######################################################
 WALLPAPERS_DIR="/home/$USER/Wallpapers"
-SOURCE_DIR="/home/$USER/hyprland_themes/theme_1/Wallpapers"
-FILE_NAME="l.jpg"
+SOURCE_DIR="/home/$USER/hyprland_themes/theme_2/Wallpapers"
+FILE_NAME="l2.png"
 
 if [ -d "$WALLPAPERS_DIR" ]; then
     if [ ! -f "$WALLPAPERS_DIR/$FILE_NAME" ]; then
