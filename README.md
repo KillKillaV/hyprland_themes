@@ -3,8 +3,6 @@
 <p align="center">
   Repositorio de temas, configuraciones y estilos visuales para <strong>Hyprland</strong>, el compositor dinámico para Wayland.<br>
   Explora, personaliza y transforma tu entorno de escritorio Linux con estilo.
-  
-  Probado en Hyprland 0.49.0 
 </p>
 
 <p align="center">
@@ -32,7 +30,7 @@ Este repositorio recopila **temas personalizados** para el entorno gráfico **Hy
 
 Antes de aplicar cualquiera de los temas, asegúrate de tener instalado:
 
-- Hyprland (En ArchLinux)
+- Hyprland (Probado en Hyprland 0.49.0 en ArchLinux)
 - Acceso a Internet
 
 ---
