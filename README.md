@@ -3,6 +3,7 @@
 <p align="center">
   Repositorio de temas, configuraciones y estilos visuales para <strong>Hyprland</strong>, el compositor dinámico para Wayland.<br>
   Explora, personaliza y transforma tu entorno de escritorio Linux con estilo.
+  
   Probado en Hyprland 0.49.0 built from branch  at commit 9958d297641b5c84dcff93f9039d80a5ad37ab00  (version: bump to 0.49.0).
 </p>
 
